@@ -3,6 +3,16 @@ var num_words = ['Zero','One','Two','Three', 'Four', 'Five', 'Six', 'Seven', 'Ei
 var answer = '';
 var TEST_SUITE_SIZE = 10;
 
+
+function acceptUserInput(){
+    var input = process.argv.slice(2);
+    if(input.length === 0){ //run tests if there is no user input
+        run_main(); 
+    }else{
+        var temp = input.map(x => Number(x)); 
+        console.log(main(temp));
+    }
+}
  //convert each digit to an alphanumeric word, return the final word 
 function converter(element){
     var word = '';
@@ -71,5 +81,5 @@ function run_main(){
    console.log('Results: \n');
    console.log(main(tests));
 }
-
-run_main();
+acceptUserInput();
+// run_main();
