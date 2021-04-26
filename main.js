@@ -1,36 +1,75 @@
 //global alphanumeric word array 
 var num_words = ['Zero','One','Two','Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
-var answer = ''
-
+var answer = '';
+var TEST_SUITE_SIZE = 10;
 
  //convert each digit to an alphanumeric word, return the final word 
 function converter(element){
     var word = '';
-    console.log(typeof element);
     var parse = element.toString();
-    console.log(parse);
     for(var i = 0; i < parse.length; i++){
-        // console.log(parse[i]);
         var digit = num_words[Number(parse[i])];
         word += digit;
     }
-    // console.log('word' + word)
 
     return word;
 }
 //run through each element of arr and send to converter
 function main(arr){
-    // console.log(arr);
     for(var i = 0; i < arr.length; i++){
-        console.log(arr[i]);
         answer = answer + converter(arr[i]) + ',' ;
-        // console.log(String(answer));
     }
-
-    return answer;
-    
+    answer = answer.slice(0,-1); // Remove the extra comma from the end of output
+    return answer; 
 }
-//
 
-test = [3,25,209]
-console.log(main(test))
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+//Output test cases:
+function output(tests){
+    console.log('There are ' + tests.length + ' test cases.');
+    console.log('Test cases: ');
+    tests.forEach(element => {
+        console.log(element);
+    });
+}
+
+
+
+//create test cases and run main.js
+function run_main(){
+    
+    var tests = [];
+    next = false;
+    for(var i = 0; i < TEST_SUITE_SIZE; i++){
+        if (next === true){ //Reset loop after a test string is created 
+            next = false;
+        }
+        var digit = getRandomInt(9);
+        var test_str = '';
+        while(!next){
+            let coin =  getRandomInt(3);
+
+            if (coin === 0 || coin ===1){ //67% chance string is longer than 1 char;
+               
+                digit = getRandomInt(9);
+                test_str += digit.toString();
+                
+            }else{
+                if(typeof test_str !== 'undefined'){
+                    tests.push(Number(test_str));
+                    next = true;
+                }
+         
+            }
+
+        }
+    }
+   output(tests);
+   console.log('Results: \n');
+   console.log(main(tests));
+}
+
+run_main();
